@@ -6,16 +6,16 @@ import org.springframework.context.annotation.Configuration;
 import lombok.Getter;
 
 @Configuration
-@ConfigurationProperties(prefix = "env")
+@ConfigurationProperties(prefix = "spring.profiles")
 @Getter
 public class EnvConfig {
-	private String phase;
+	private String active;
 
 	public boolean isLocal() {
-		return Phase.from(phase) == Phase.LOCAL;
+		return Phase.from(active) == Phase.LOCAL;
 	}
 
-	public void setPhase(String phase) {
-		this.phase = phase;
+	public void setActive(String active) {
+		this.active = active;
 	}
 }

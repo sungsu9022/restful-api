@@ -1,0 +1,9 @@
+
+### 1. 상품 추가
+POST http://localhost:9022/products HTTP/1.1
+Accept: *
+Content-Type: application/json
+
+{"name":"test상품","category":"TOP","description":"test TOP 상품입니다.","cost":10000}
+
+###

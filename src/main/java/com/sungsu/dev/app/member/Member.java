@@ -13,5 +13,5 @@ import lombok.Getter;
 public class Member {
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 }
