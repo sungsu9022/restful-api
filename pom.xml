@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.sungsu</groupId>
+	<artifactId>spring-boot-restful-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>spring-boot-restful-api</name>
+	<description>Restful API Demo Project</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.6.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<source-encoding>UTF-8</source-encoding>
+		<jdk-version>1.8</jdk-version>
+		<swagger2.version>2.9.2</swagger2.version>
+		<lombok.version>1.18.12</lombok.version>
+		<deploy-path>${basedir}/deploy</deploy-path>
+	</properties>
+
+	<dependencies>
+		<!-- spring boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+			<version>${lombok.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- spring boot -->
+
+		<!-- swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger2.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- db -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>5.4.14.Final</version>
+		</dependency>
+
+		<!-- jsp -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>29.0-jre</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+		<outputDirectory>${basedir}/src/main/webapp/WEB-INF/classes</outputDirectory>
+		<testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+		<testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
+		<testResources>
+			<testResource>
+				<directory>${basedir}/src/test/resources</directory>
+			</testResource>
+		</testResources>
+		<finalName>spring-boot-executable</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${deploy-path}</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${deploy-path}</directory>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/src/main/webapp/WEB-INF/classes</directory>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/src/main/webapp/WEB-INF/lib</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<!-- 환경변수로 저장된 JAVA_8_HOME을 불러온다 -->
+					<source>${jdk-version}</source>
+					<target>${jdk-version}</target>
+					<encoding>${source-encoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webappDirectory>${deploy-path}</webappDirectory>
+					<webResources>
+						<resource>
+							<directory>${project.basedir}/src/main/webapp</directory>
+							<!--<includes>
+                                <include>static/vendor/**</include>
+                            </includes>-->
+						</resource>
+						<!-- <resource>
+                             <directory>${project.build.directory}/prepare</directory>
+                             <includes>
+                                 <include>**/**</include>
+                             </includes>
+                         </resource>-->
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+			</resource>
+		</resources>
+
+	</build>
+
+	<profiles>
+		<profile>
+			<id>sonarqube</id>
+			<properties>
+				<env>dev</env>
+				<sonar.host.url>http://localhost:9000</sonar.host.url>
+				<sonar.projectKey>spring-boot-boilerplate</sonar.projectKey>
+				<sonar.projectName>spring-boot-boilerplate</sonar.projectName>
+				<sonar.projectVersion>0.1</sonar.projectVersion>
+				<sonar.sources>src/main</sonar.sources>
+				<sonar.tests>src/test</sonar.tests>
+				<sonar.java.binaries>deploy</sonar.java.binaries>
+				<sonar.java.libraries>/Users/seongsuPark/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar</sonar.java.libraries>
+			</properties>
+		</profile>
+	</profiles>
+
+
+</project>
