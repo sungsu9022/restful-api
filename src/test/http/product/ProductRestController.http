@@ -42,7 +42,7 @@ PATCH http://localhost:9022/products/1 HTTP/1.1
 Accept: *
 Content-Type: application/json
 
-{"id":1,"name":"PATCH이름변경","category":"BOTTOM"}
+{"id":1,"name":"PATCH이름변경2","category":"BOTTOM"}
 
 ### 6. 상품 삭제
 DELETE http://localhost:9022/products/1 HTTP/1.1
