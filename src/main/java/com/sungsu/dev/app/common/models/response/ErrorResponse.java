@@ -1,11 +1,17 @@
 package com.sungsu.dev.app.common.models.response;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Getter
-@RequiredArgsConstructor
 public class ErrorResponse implements ResponseModel {
-	private final String code;
-	private final String message;
+	public static final ErrorResponse EMPTY_ERROR_RESPONSE = new ErrorResponse();
+
+	private String code;
+	private String message;
 }

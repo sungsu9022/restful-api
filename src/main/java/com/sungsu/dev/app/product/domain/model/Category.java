@@ -1,4 +1,4 @@
-package com.sungsu.dev.app.product.category;
+package com.sungsu.dev.app.product.domain.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -6,4 +6,45 @@ Content-Type: application/json
 
 {"name":"test상품","category":"TOP","description":"test TOP 상품입니다.","cost":10000}
 
-###
+### 1-2 상품 추가
+POST http://localhost:9022/products HTTP/1.1
+Accept: *
+Content-Type: application/json
+
+{"name":"test상품2","category":"TOP","description":"test TOP 상품입니다.","cost":8000}
+
+### 2. 상품 조회
+GET http://localhost:9022/products/1 HTTP/1.1
+Accept: *
+Content-Type: application/json
+
+### 3. 상품 목록 조회
+GET http://localhost:9022/products?page=0 HTTP/1.1
+Accept: *
+Content-Type: application/json
+
+### 4. 상품 업데이트(실패)
+PUT http://localhost:9022/products/1 HTTP/1.1
+Accept: *
+Content-Type: application/json
+
+{"name":"test상품","category":"TOP","description":"test TOP 상품입니다.","cost":10000}
+
+### 4. 상품 업데이트(성공)
+PUT http://localhost:9022/products/1 HTTP/1.1
+Accept: *
+Content-Type: application/json
+
+{"id":1,"name":"test상품업데이트","category":"TOP","description":"test TOP 상품입니다.","cost":10000}
+
+### 5. 상품 부분 업데이트(성공)
+PATCH http://localhost:9022/products/2 HTTP/1.1
+Accept: *
+Content-Type: application/json
+
+{"id":2,"name":"PATCH이름변경","category":"BOTTOM"}
+
+### 6. 상품 삭제
+DELETE http://localhost:9022/products/1 HTTP/1.1
+Accept: *
+Content-Type: application/json
