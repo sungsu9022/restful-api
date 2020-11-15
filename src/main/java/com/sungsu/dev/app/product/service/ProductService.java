@@ -32,7 +32,7 @@ public class ProductService {
 
 	public Product getProduct(long id) {
 		return productRepository.findById(id)
-			.orElseThrow(() -> new ServiceException(ErrorCode.NOT_FOUND));
+			.orElseThrow(() -> new ServiceException(ErrorCode.NOT_FOUND, "상품이 존재하지 않습니다."));
 	}
 
 	public Page<Product> getProducts(int page, int size) {

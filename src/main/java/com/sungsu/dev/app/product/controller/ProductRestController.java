@@ -45,7 +45,7 @@ public class ProductRestController {
 	public ResponseModel createProduct(@RequestBody Product productRequest) {
 		log.debug("createProduct : {}", productRequest);
 		final Product saved = productService.saveProduct(productRequest);
-		return new SuccessResponse<>(ProductModel.create(saved));
+		return SuccessResponse.create(ProductModel.create(saved));
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class ProductRestController {
 	@GetMapping(value = "/products/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseModel getProduct(@PathVariable long id) {
 		final Product product = productService.getProduct(id);
-		return new SuccessResponse<>(ProductModel.create(product));
+		return SuccessResponse.create(ProductModel.create(product));
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class ProductRestController {
 	@GetMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseModel getProducts(@RequestParam(defaultValue = "0") int page) {
 		final Page<Product> products = productService.getProducts(page, PAGE_SIZE);
-		return new SuccessResponse<>(new ProductPageModel(products));
+		return SuccessResponse.create(new ProductPageModel(products));
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class ProductRestController {
 	public ResponseModel putProduct(@RequestBody @Valid UpdateProduct updateProduct) {
 		final Product update = updateProduct.toProduct();
 		final Product product = productService.saveProduct(update);
-		return new SuccessResponse<>(ProductModel.create(product));
+		return SuccessResponse.create(ProductModel.create(product));
 	}
 
 	/**
@@ -91,7 +91,8 @@ public class ProductRestController {
 	public ResponseModel patchProduct(@RequestBody @Valid PatchProduct patchProduct) {
 		final Product origin = productService.getProduct(patchProduct.getId());
 		final Product update = productService.saveProduct((patchProduct.toProduct(origin)));
-		return new SuccessResponse<>(ProductModel.create(update));
+		return SuccessResponse.create(ProductModel.create(update));
+
 	}
 
 	/**
@@ -109,7 +110,7 @@ public class ProductRestController {
 	@ResponseBody
 	ResponseModel processValidationError(HttpServletRequest request, MethodArgumentNotValidException ex) throws Exception {
 		log.error("[product request error]", ex);
-		return new ErrorResponse("400", "parameter is not present");
+		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "parameter is not present");
 	}
 
 

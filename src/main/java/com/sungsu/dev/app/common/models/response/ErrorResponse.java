@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ErrorResponse implements ResponseModel {
 	public static final ErrorResponse EMPTY_ERROR_RESPONSE = new ErrorResponse();
 
-	private String code;
+	private int code;
 	private String message;
 }

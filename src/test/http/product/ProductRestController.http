@@ -38,11 +38,11 @@ Content-Type: application/json
 {"id":1,"name":"test상품업데이트","category":"TOP","description":"test TOP 상품입니다.","cost":10000}
 
 ### 5. 상품 부분 업데이트(성공)
-PATCH http://localhost:9022/products/2 HTTP/1.1
+PATCH http://localhost:9022/products/1 HTTP/1.1
 Accept: *
 Content-Type: application/json
 
-{"id":2,"name":"PATCH이름변경","category":"BOTTOM"}
+{"id":1,"name":"PATCH이름변경","category":"BOTTOM"}
 
 ### 6. 상품 삭제
 DELETE http://localhost:9022/products/1 HTTP/1.1
